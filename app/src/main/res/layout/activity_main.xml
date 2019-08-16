@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.text.TextUtils"/>
+        <variable
+                name="mainViewModel"
+                type="com.khsbs.simplecalculator.ui.MainViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.MainActivity">
+
+        <TextView
+                android:id="@+id/tv_expr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="30sp"
+                android:hint="수식을 입력하세요"
+                android:text="@{mainViewModel.expr}"
+
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:textSize="20sp"
+                android:maxLines="1"
+                android:visibility="@{TextUtils.isEmpty(mainViewModel.result) ? View.GONE : View.VISIBLE}"
+                android:text="@{mainViewModel.result}"
+                tools:text="= result"
+
+                android:padding="8dp"
+                app:layout_constraintTop_toBottomOf="@id/tv_expr"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_1stFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_plusAndMinus"
+                    android:onClick="@{() -> mainViewModel.resetExpr()}"
+                    android:text="C"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_0"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_plusAndMinus"
+                  app:layout_constraintEnd_toStartOf="@id/tv_0"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_0"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('0')}"
+                    android:text="0"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_plusAndMinus" app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_dot"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_0"
+                  app:layout_constraintEnd_toStartOf="@id/tv_dot"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_dot"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('.')}"
+                    android:text="."
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_0"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_equal"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_dot"
+                  app:layout_constraintEnd_toStartOf="@id/tv_equal"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_equal"
+                    android:onClick="@{() -> mainViewModel.calculate(mainViewModel.expr)}"
+                    android:text="="
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_dot"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                app:layout_constraintBottom_toTopOf="@id/cl_1stFloor"
+                app:layout_constraintTop_toBottomOf="@id/cl_2ndFloor"
+                android:background="@android:color/black"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_2ndFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/cl_1stFloor">
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_1"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('1')}"
+                    android:text="1"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_2"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_1"
+                  app:layout_constraintEnd_toStartOf="@id/tv_2"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_2"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('2')}"
+                    android:text="2"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_1"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_3"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_2"
+                  app:layout_constraintEnd_toStartOf="@id/tv_3"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_3"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('3')}"
+                    android:text="3"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_2"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_plus"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_3"
+                  app:layout_constraintEnd_toStartOf="@id/tv_plus"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_plus"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('+')}"
+                    android:text="+"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_3"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                app:layout_constraintBottom_toTopOf="@id/cl_2ndFloor"
+                app:layout_constraintTop_toBottomOf="@id/cl_3rdFloor"
+                android:background="@android:color/black"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_3rdFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/cl_2ndFloor">
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_4"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('4')}"
+                    android:text="4"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_5"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_4"
+                  app:layout_constraintEnd_toStartOf="@id/tv_5"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_5"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('5')}"
+                    android:text="5"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_4"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_6"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_5"
+                  app:layout_constraintEnd_toStartOf="@id/tv_6"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_6"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('6')}"
+                    android:text="6"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_5"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_minus"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_6"
+                  app:layout_constraintEnd_toStartOf="@id/tv_minus"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_minus"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('-')}"
+                    android:text="-"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_6"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                app:layout_constraintBottom_toTopOf="@id/cl_3rdFloor"
+                app:layout_constraintTop_toBottomOf="@id/cl_4thFloor"
+                android:background="@android:color/black"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_4thFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/cl_3rdFloor">
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_7"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('7')}"
+                    android:text="7"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_8"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_7"
+                  app:layout_constraintEnd_toStartOf="@id/tv_8"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_8"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('8')}"
+                    android:text="8"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_7"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_9"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_8"
+                  app:layout_constraintEnd_toStartOf="@id/tv_9"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_9"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('9')}"
+                    android:text="9"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_8"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_multiple"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_9"
+                  app:layout_constraintEnd_toStartOf="@id/tv_multiple"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_multiple"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('*')}"
+                    android:text="x"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_9"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                app:layout_constraintBottom_toTopOf="@id/cl_4thFloor"
+                app:layout_constraintTop_toBottomOf="@id/cl_5thFloor"
+                android:background="@android:color/black"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_5thFloor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@id/cl_4thFloor">
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_history"
+                    android:text="History"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_erase"
+                    app:layout_constraintHorizontal_weight="2"
+            />
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_history"
+                  app:layout_constraintEnd_toStartOf="@id/tv_erase"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_erase"
+                    android:onClick="@{() -> mainViewModel.eraseExpr()}"
+                    android:text="&lt;"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_history"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_division"
+                    app:layout_constraintHorizontal_weight="1"/>
+
+            <View android:layout_width="0.5dp" android:layout_height="60dp"
+                  android:background="@android:color/black"
+
+                  app:layout_constraintStart_toEndOf="@id/tv_erase"
+                  app:layout_constraintEnd_toStartOf="@id/tv_division"
+                  app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    style="@style/GridTextView"
+                    android:id="@+id/tv_division"
+                    android:onClick="@{() -> mainViewModel.clickNumPad('/')}"
+                    android:text="÷"
+
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_erase"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+
+                app:layout_constraintBottom_toTopOf="@id/cl_5thFloor"
+                android:background="@android:color/black"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
