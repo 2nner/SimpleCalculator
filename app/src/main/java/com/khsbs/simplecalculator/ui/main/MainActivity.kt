@@ -1,4 +1,4 @@
-package com.khsbs.simplecalculator.ui
+package com.khsbs.simplecalculator.ui.main
 
 import android.os.Bundle
 import android.text.Editable
@@ -6,9 +6,11 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.khsbs.simplecalculator.R
 import com.khsbs.simplecalculator.databinding.ActivityMainBinding
+import com.khsbs.simplecalculator.ui.history.HistoryBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.sdk21.listeners.onClick
 import org.jetbrains.anko.toast
@@ -42,5 +44,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
         tv_history.onClick { toast("추후 추가 예정입니다.") }
+
+        observeData()
+    }
+
+    fun observeData() {
+        viewModel.history.observe(this, Observer {
+            HistoryBottomSheetDialog().show(supportFragmentManager, "HistoryBottomSheetDialog")
+        })
     }
 }

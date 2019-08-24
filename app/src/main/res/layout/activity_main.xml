@@ -8,13 +8,16 @@
         <import type="android.text.TextUtils"/>
         <variable
                 name="mainViewModel"
-                type="com.khsbs.simplecalculator.ui.MainViewModel"/>
+                type="com.khsbs.simplecalculator.ui.main.MainViewModel"/>
+        <variable
+                name="activity"
+                type="com.khsbs.simplecalculator.databinding.ActivityMainBinding"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.MainActivity">
+            tools:context=".ui.main.MainActivity">
 
         <TextView
                 android:id="@+id/tv_expr"
@@ -354,6 +357,7 @@
             <TextView
                     style="@style/GridTextView"
                     android:id="@+id/tv_history"
+                    android:onClick="@{() -> mainViewModel.showHistory()}"
                     android:text="History"
 
                     app:layout_constraintBottom_toBottomOf="parent"
