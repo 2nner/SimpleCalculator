@@ -1,9 +1,15 @@
 package com.khsbs.simplecalculator.util
 
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.script.ScriptEngineManager
 
 object Calculate {
-    fun eval(str: String): String {
+
+    private val engine = ScriptEngineManager().getEngineByName("js")
+
+    /*fun eval(str: String): String {
         val engine = ScriptEngineManager().getEngineByName("js")
         try {
             val result = engine.eval(str) as Double
@@ -14,5 +20,11 @@ object Calculate {
         } catch (e: Exception) {
             return "수식이 올바르지 않습니다!"
         }
-    }
+    }*/
+
+    fun eval(str: String) =
+        Single.fromCallable {
+            engine.eval(str) as Double
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 }

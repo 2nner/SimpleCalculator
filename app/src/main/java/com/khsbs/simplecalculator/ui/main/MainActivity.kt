@@ -12,8 +12,6 @@ import com.khsbs.simplecalculator.R
 import com.khsbs.simplecalculator.databinding.ActivityMainBinding
 import com.khsbs.simplecalculator.ui.history.HistoryBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.sdk21.listeners.onClick
-import org.jetbrains.anko.toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +41,6 @@ class MainActivity : AppCompatActivity() {
                 tv_result.visibility = View.INVISIBLE
             }
         })
-        tv_history.onClick { toast("추후 추가 예정입니다.") }
 
         observeData()
     }

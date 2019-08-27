@@ -19,7 +19,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HistoryViewHolder =
         HistoryViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_history, parent)
+                .inflate(R.layout.item_history, parent, false)
         )
 
     override fun onBindViewHolder(holder: HistoryViewHolder, pos: Int) {
@@ -32,7 +32,7 @@ class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() 
         fun bind(item: History) {
             with(itemView) {
                 tv_history_expr.text = item.expr
-                tV_history_result.text = item.result
+                tV_history_result.text = "= ".plus(item.result)
             }
         }
     }

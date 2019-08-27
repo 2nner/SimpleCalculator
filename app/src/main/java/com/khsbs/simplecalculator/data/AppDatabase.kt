@@ -21,10 +21,17 @@ abstract class AppDatabase : RoomDatabase() {
                 synchronized(AppDatabase::class) {
                     INSTANCE = Room.databaseBuilder(
                         BaseApplication.appContext, AppDatabase::class.java, "history.db"
-                    ).build()
+                    )/*.addCallback(object : Callback() {
+                        override fun onCreate(db: SupportSQLiteDatabase) {
+                            super.onCreate(db)
+
+                            val executor = Executors.newSingleThreadExecutor()
+                            executor.execute(get().historyDao().deleteAll())
+                        }
+                    })*/
+                        .allowMainThreadQueries().build()
                 }
             }
-
             return INSTANCE!!
         }
     }
